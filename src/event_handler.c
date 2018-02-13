@@ -4,10 +4,10 @@ void EV_setActionMap(EventHandler * EV)
 {
 	EV->action_map = malloc(ACTION_NUMBER * sizeof *(EV->action_map));
 	EV->action_map[FORWARD] = SDL_SCANCODE_W;
-	EV->action_map[BACKWARD] = SDL_SCANCODE_S;
-	EV->action_map[LEFTWARD] = SDL_SCANCODE_A;
-	EV->action_map[RIGHTWARD] = SDL_SCANCODE_D;
-	EV->action_map[LOOK_Y] = 1;
+	EV->action_map[BACK] = SDL_SCANCODE_S;
+	EV->action_map[LEFT] = SDL_SCANCODE_A;
+	EV->action_map[RIGHT] = SDL_SCANCODE_D;
+	EV->action_map[LOOK_Y] = -1;
 	EV->action_map[LOOK_X] = 1;
 }
 
@@ -78,13 +78,13 @@ int map_keyboard(const SDL_Event * event, int * input_status, const EventHandler
 		case FORWARD:
 			printf("forward\n");
 			break;
-		case BACKWARD:
+		case BACK:
 			printf("backward\n");
 			break;
-		case LEFTWARD:
+		case LEFT:
 			printf("to the left\n");
 			break;
-		case RIGHTWARD:
+		case RIGHT:
 			printf("to the right\n");
 			break;
 	}
@@ -94,6 +94,15 @@ int map_keyboard(const SDL_Event * event, int * input_status, const EventHandler
 int map_mouse(const SDL_Event * event, int * input_status, const EventHandler * EV)
 {
 	input_status[LOOK_X] = EV_getMouseAction(LOOK_X, event->motion.xrel, EV);
-	input_status[LOOK_Y] = EV_getMouseAction(LOOK_Y, event->motion.xrel, EV);
-	printf("Current mouse position is: (%d, %d)\n", event->motion.xrel, event->motion.yrel);
+	input_status[LOOK_Y] = EV_getMouseAction(LOOK_Y, event->motion.yrel, EV);
+	if (input_status[LOOK_Y] > 0) {
+		printf("Looking UP!\n");
+	} else if (input_status[LOOK_Y] < 0) {
+		printf("Looking down!\n");
+	}
+	if (input_status[LOOK_X] > 0) {
+		printf("Looking right!\n");
+	} else if (input_status[LOOK_X] < 0) {
+		printf("Looking left!\n");
+	}
 }
