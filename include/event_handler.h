@@ -25,12 +25,12 @@ typedef struct EventHandler
 /**
  * Konstruktor dla EventHandlera
  */
-void EV_setActionMap(EventHandler * am);
+EventHandler * EV_createEventHandler();
 
 /**
  * Destruktor dla EventHandlera
  */
-void EV_deleteActionMap(EventHandler * am);
+void EV_destroyEventHandler(EventHandler ** am);
 
 /**
  * Obsługuje wszystkie zdarzenia

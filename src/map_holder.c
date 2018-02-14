@@ -16,14 +16,16 @@ MapHolder * MH_createMapHolder()
 			MH->map[i][j] = 0;
 		}
 	}
+	return MH;
 }
 
-void MH_deleteMapHolder(MapHolder ** MH)
+void MH_destroyMapHolder(MapHolder ** MH)
 {
 	for (int i = 0; i < (*MH)->width; i++) {
 		free(*((*MH)->map + i));
 	}
 	free((*MH)->map);
+	free(*MH);
 }
 
 int MH_getPixel(const MapHolder * MH, int x, int y)

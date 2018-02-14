@@ -16,7 +16,7 @@ MapHolder * MH_createMapHolder();
 /**
  * Destruktor
  */
-void MH_deleteMapHolder(MapHolder ** MH);
+void MH_destroyMapHolder(MapHolder ** MH);
 
 /**
  * Zwraca wartość pixela w (x, y)

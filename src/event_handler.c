@@ -1,7 +1,8 @@
 #include "event_handler.h"
 
-void EV_setActionMap(EventHandler * EV)
+EventHandler * EV_createEventHandler()
 {
+	EventHandler * EV = malloc(sizeof *EV);
 	EV->action_map = malloc(ACTION_NUMBER * sizeof *(EV->action_map));
 	EV->action_map[FORWARD] = SDL_SCANCODE_W;
 	EV->action_map[BACK] = SDL_SCANCODE_S;
@@ -9,12 +10,14 @@ void EV_setActionMap(EventHandler * EV)
 	EV->action_map[RIGHT] = SDL_SCANCODE_D;
 	EV->action_map[LOOK_Y] = -1;
 	EV->action_map[LOOK_X] = 1;
+	return EV;
 }
 
-void EV_deleteActionMap(EventHandler * EV)
+void EV_destroyEventHandler(EventHandler ** EV)
 {
-	free(EV->action_map);
-	EV->action_map = NULL;
+	free((*EV)->action_map);
+	free(*EV);
+	*EV = NULL;
 }
 
 /**

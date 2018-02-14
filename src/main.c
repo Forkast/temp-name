@@ -47,18 +47,17 @@ int main_loop()
 		input_status[i] = 0;
 	}
 
-	EventHandler EV;
-	EV_setActionMap(&EV);
+	EventHandler * EV = EV_createEventHandler();
 
 	while (!quit) {
 		//event
-		quit = handle_event(input_status, &EV);
+		quit = handle_event(input_status, EV);
 		//logic
 		//render
 	}
 
-	EV_deleteActionMap(&EV);
-	MH_deleteMapHolder(&MH);
+	EV_destroyEventHandler(&EV);
+	MH_destroyMapHolder(&MH);
 	SDL_DestroyWindow(window);
 	return 0;
 }
