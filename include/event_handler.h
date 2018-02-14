@@ -22,7 +22,14 @@ typedef struct EventHandler
 	int * action_map;
 } EventHandler;
 
+/**
+ * Konstruktor dla EventHandlera
+ */
 void EV_setActionMap(EventHandler * am);
+
+/**
+ * Destruktor dla EventHandlera
+ */
 void EV_deleteActionMap(EventHandler * am);
 
 /**

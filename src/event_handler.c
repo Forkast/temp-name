@@ -65,36 +65,43 @@ int handle_event(int * input_status, const EventHandler * EV)
 int map_keyboard(const SDL_Event * event, int * input_status, const EventHandler * EV)
 {
 	int action = EV_getKeyboardAction(event->key.keysym.scancode, EV);
+	int print = 0;
 	if (action == -1)
 		return 0;
 	if (event->key.type == SDL_KEYUP) {
 		printf("Release:- ");
 		input_status[action] = 0;
+		print = 1;
 	} else if (event->key.type == SDL_KEYDOWN && input_status[action] != 1) {
 		printf("Press:- ");
 		input_status[action] = 1;
+		print = 1;
 	}
-	switch(action) {
-		case FORWARD:
-			printf("forward\n");
-			break;
-		case BACK:
-			printf("backward\n");
-			break;
-		case LEFT:
-			printf("to the left\n");
-			break;
-		case RIGHT:
-			printf("to the right\n");
-			break;
+	if (print) {
+		switch(action) {
+			case FORWARD:
+				printf("forward\n");
+				break;
+			case BACK:
+				printf("backward\n");
+				break;
+			case LEFT:
+				printf("to the left\n");
+				break;
+			case RIGHT:
+				printf("to the right\n");
+				break;
+		}
 	}
 	return 0;
 }
 
 int map_mouse(const SDL_Event * event, int * input_status, const EventHandler * EV)
 {
-	input_status[LOOK_X] = EV_getMouseAction(LOOK_X, event->motion.xrel, EV);
-	input_status[LOOK_Y] = EV_getMouseAction(LOOK_Y, event->motion.yrel, EV);
+	if (event->type == SDL_MOUSEMOTION) {
+		input_status[LOOK_X] = EV_getMouseAction(LOOK_X, event->motion.xrel, EV);
+		input_status[LOOK_Y] = EV_getMouseAction(LOOK_Y, event->motion.yrel, EV);
+	}
 	if (input_status[LOOK_Y] > 0) {
 		printf("Looking UP!\n");
 	} else if (input_status[LOOK_Y] < 0) {
