@@ -13,7 +13,7 @@ MapHolder * MH_createMapHolder()
 	for (int i = 0; i < MH->width; i++) {
 		*(MH->map + i) = malloc(MH->height * sizeof *(*MH->map));
 		for (int j = 0; j < MH->height; j++) {
-			MH->map[i][j] = 0;
+			MH->map[i][j] = ((i + 10) * (j + 10)) %(256*256*256) ;
 		}
 	}
 	return MH;
